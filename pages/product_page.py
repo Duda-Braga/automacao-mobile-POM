@@ -1,5 +1,6 @@
 from appium.webdriver.common.appiumby import AppiumBy
 from .base_page import BasePage
+import time
 
 class ProductPage(BasePage):
     def __init__(self, driver):
@@ -11,6 +12,7 @@ class ProductPage(BasePage):
         self.add_cart_btn_id = "cartBt"
         self.cart_icon_id = "cartIV"
         self.cart_icon_qtt_id = "cartTV"
+        self.product_uinty_value_id = "priceTV"
 
     
     def get_product_page_title(self):
@@ -18,6 +20,9 @@ class ProductPage(BasePage):
 
     def get_product_quantity(self):
         return int(self.get_element_text(AppiumBy.ID, self.qtt_product_id))
+    
+    def get_product_unity_value(self):
+        return float(self.get_element_text(AppiumBy.ID, self.product_uinty_value_id)[2:])
 
     def increase_qunatity(self):
         self.click_element(AppiumBy.ID, self.plus_btn_id)
@@ -44,5 +49,5 @@ class ProductPage(BasePage):
     
     def go_to_cart(self):
         self.click_element(AppiumBy.ID, self.cart_icon_id)
-        
+        time.sleep(1)
 
