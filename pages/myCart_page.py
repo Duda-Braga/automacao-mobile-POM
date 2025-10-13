@@ -1,6 +1,5 @@
 from appium.webdriver.common.appiumby import AppiumBy
 from .base_page import BasePage
-import time
 
 class MyCart(BasePage):
     def __init__(self,driver):
@@ -33,5 +32,4 @@ class MyCart(BasePage):
     
     def go_to_proced_checkout(self):
         self.click_element(AppiumBy.ID, self.mycart_proceed_checkout_btn_id)
-        time.sleep(1)
         

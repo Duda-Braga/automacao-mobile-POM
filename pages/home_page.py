@@ -1,6 +1,5 @@
 from appium.webdriver.common.appiumby import AppiumBy
 from .base_page import BasePage
-import time 
 
 class HomePage(BasePage):
     def __init__(self, driver):
@@ -13,5 +12,3 @@ class HomePage(BasePage):
 
     def select_orange_backpack(self):
         self.click_element(AppiumBy.XPATH, self.orange_backpack_xpath)
-        time.sleep(1)
-

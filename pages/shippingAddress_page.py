@@ -1,6 +1,5 @@
 from appium.webdriver.common.appiumby import AppiumBy
 from .base_page import BasePage
-import time
 
 class ShippingAddress(BasePage):
     def __init__(self,driver):
@@ -22,7 +21,6 @@ class ShippingAddress(BasePage):
 
     def go_to_payment(self):
         self.click_element(AppiumBy.ID, self.payment_btn_id)
-        time.sleep(1)
     
     def get_title(self):
         return self.get_element_text(AppiumBy.ID, self.address_title_id)
@@ -42,6 +40,3 @@ class ShippingAddress(BasePage):
         assert self.is_element_displayed(AppiumBy.ID, self.error_empty_city_id), f"Empty city error did not appear on Shipping Address screen"
         assert self.is_element_displayed(AppiumBy.ID, self.error_empty_zip_code_id), f"Empty zip code error did not appear on Shipping Address screen"
         assert self.is_element_displayed(AppiumBy.ID, self.error_empty_country_id), f"Empty country error did not appear on Shipping Address screen"
-
-
- 

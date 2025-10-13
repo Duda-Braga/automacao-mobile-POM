@@ -29,7 +29,7 @@ def test_product_selection(driver,load_data):
     #data 
     user = "Test user"
 
-
+    ### HOME PAGE
     # Perform actions using page object methods
     assert home_page.get_home_page_title() == "Products", f"It should be in Products screen, but it is in {home_page.get_home_page_title()}"
     home_page.select_orange_backpack()

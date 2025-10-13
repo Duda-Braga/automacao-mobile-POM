@@ -1,6 +1,5 @@
 from appium.webdriver.common.appiumby import AppiumBy
 from .base_page import BasePage
-import time
 
 class Login(BasePage):
     def __init__(self,driver):
@@ -19,7 +18,6 @@ class Login(BasePage):
     
     def do_login(self):
         self.click_element(AppiumBy.ID, self.login_btn_id)
-        time.sleep(1)
 
     def is_username_error_display(self):
         self.is_element_displayed(AppiumBy.ID, self.error_empty_user_id)

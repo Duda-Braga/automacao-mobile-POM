@@ -1,7 +1,6 @@
 from appium.webdriver.common.appiumby import AppiumBy
 from .base_page import BasePage
 from utils.mobile_gestures import MobileGestures 
-import time 
 
 class PaymentMethod(BasePage):
     def __init__(self, driver):
@@ -41,7 +40,6 @@ class PaymentMethod(BasePage):
 
     def go_to_review_order(self):
         self.click_element(AppiumBy.ID, self.review_order_btn_id)
-        time.sleep(1)
 
     def assert_is_all_card_errors_displayed(self):
         assert self.is_element_displayed(AppiumBy.ID, self.error_full_name_id), f"Full name error did not appear on Payment Screen"
@@ -62,7 +60,8 @@ class PaymentMethod(BasePage):
         self.click_element(AppiumBy.ID, self.billing_address_check_id)
 
     def fill_forms_billing_address(self, load_data):
-        self.gestures.scroll_screen(direction="down")
+        self.scroll_untill_is_visible(AppiumBy.ID, self.country_field_id, "down", 10) #last element on screen
+
         self.send_keys_to_element(AppiumBy.ID, self.full_name_address_field_id, load_data["billing_address"]["full_name"])
         self.send_keys_to_element(AppiumBy.ID, self.address_one_field_id, load_data["billing_address"]["address_one"])
         self.send_keys_to_element(AppiumBy.ID, self.address_two_field_id, load_data["billing_address"]["address_two"])
@@ -72,7 +71,8 @@ class PaymentMethod(BasePage):
         self.send_keys_to_element(AppiumBy.ID, self.country_field_id, load_data["billing_address"]["country"])
 
     def assert_is_all_billing_adddress_errors_displayed(self):
-        self.gestures.scroll_screen(direction="down")
+        self.scroll_untill_is_visible(AppiumBy.ID, self.country_field_id, "down", 10) #last element on screen
+        
         assert self.is_element_displayed(AppiumBy.ID, self.error_name_address_id), f"Empty full name error did not appear on Payment Screen"
         assert self.is_element_displayed(AppiumBy.ID, self.error_address_one_id), f"Empty address one error did not appear on Payment Screen"
         assert self.is_element_displayed(AppiumBy.ID, self.error_city_id), f"Empty city error did not appear on Payment Screen"
