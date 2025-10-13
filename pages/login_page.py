@@ -10,21 +10,34 @@ class Login(BasePage):
         self.user_field_id = "nameET"
         self.password_field_id = "passwordET"
         self.error_empty_user_id = "nameErrorTV"
-        self.error_empty_password_id = ""
-
+        self.error_empty_user_id = "nameErrorTV"
+        self.error_empty_password_id = "passwordErrorTV"
+        self.first_user_id = "username1TV"
 
     def get_login_title(self):
         return self.get_element_text(AppiumBy.ID, self.login_title_id)
     
     def do_login(self):
         self.click_element(AppiumBy.ID, self.login_btn_id)
+        time.sleep(1)
 
+    def is_username_error_display(self):
+        self.is_element_displayed(AppiumBy.ID, self.error_empty_user_id)
 
+    def is_password_error_display(self):
+        self.is_element_displayed(AppiumBy.ID, self.error_empty_password_id)
 
+    def get_error_user(self):
+        self.get_element_text(AppiumBy.ID, self.error_empty_user_id)
 
-    # Validate that the Login screen has been displayed
-    # Try to log in without entering Username and Password and validate the error in the Username field
-    # Try to log in without entering Password and validate the error in the Password field
-    # Capture the first Username from the Usernames list at the bottom of the screen and enter this value in the Username field
-    # Capture the Password from the Password list at the bottom of the screen and enter this value in the Password field
-    # Click on the Login button
+    def get_error_password(self):
+        self.get_element_text(AppiumBy.ID, self.error_empty_password_id)
+
+    def do_first_login_example(self):
+        self.click_element(AppiumBy.ID, self.first_user_id)
+
+    def fill_user(self, user):
+        self.send_keys_to_element(AppiumBy.ID, self.user_field_id, user)
+
+    def fill_password(self, password):
+        self.send_keys_to_element(AppiumBy.ID, self.password_field_id, password)

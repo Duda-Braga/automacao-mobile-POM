@@ -34,3 +34,4 @@ class MyCart(BasePage):
     def go_to_proced_checkout(self):
         self.click_element(AppiumBy.ID, self.mycart_proceed_checkout_btn_id)
         time.sleep(1)
+        

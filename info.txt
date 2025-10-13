@@ -13,5 +13,7 @@ comando para todar no terminal
 python3 test_open_app.py
 
 rodar com pom pytest pasta/nome_arquivo
+source myproject/bin/activate
+pytest test/test_purchase.py
 
 refinar depois o codigo impor de pages dentro da funcao

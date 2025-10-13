@@ -2,21 +2,32 @@ import pytest
 from pages.home_page import HomePage
 from pages.product_page import ProductPage
 from pages.myCart_page import MyCart
-# Import other page objects as needed
+from pages.login_page import Login
+from pages.shippingAddress_page import ShippingAddress
+from pages.payment_page import PaymentMethod
 
+import time
+
+# Import other page objects as needed
 # Test test to purchase 1 type of item
-def test_product_selection(driver):
+def test_product_selection(driver,load_data):
 
     # Initialize page objects with the driver provided by the fixture
     home_page = HomePage(driver)
     product_page = ProductPage(driver)
     mycart_page = MyCart(driver)
+    login_page = Login(driver)
+    address_page = ShippingAddress(driver)
+    payment_page = PaymentMethod(driver)
 
     # item of test
     expected_product_name = "Sauce Labs Backpack (orange)"
     expeected_product_quantity = 2
     expected_unity_value = product_page.get_product_unity_value()
     expeted_total_item_value = expected_unity_value * expeected_product_quantity
+
+    #data 
+    user = "Test user"
 
 
     # Perform actions using page object methods
@@ -75,9 +86,67 @@ def test_product_selection(driver):
     # Click on the Proceed To Checkout button
     mycart_page.go_to_proced_checkout()
 
+    ### LOGIN PAGE
     # Validate that the Login screen has been displayed
+    assert login_page.get_login_title() == "Login", f"It should be in Login screen, but it is in {login_page.get_login_title()}"
+
     # Try to log in without entering Username and Password and validate the error in the Username field
+    login_page.do_login()
+    login_page.is_username_error_display()
+
     # Try to log in without entering Password and validate the error in the Password field
-    # Capture the first Username from the Usernames list at the bottom of the screen and enter this value in the Username field
-    # Capture the Password from the Password list at the bottom of the screen and enter this value in the Password field
-    # Click on the Login button
+    login_page.fill_user(user)
+    login_page.do_login()
+    login_page.is_password_error_display()
+
+    # Capture the first Username from the Usernames list and the password, login
+    login_page.do_first_login_example()
+    login_page.do_login()
+
+    ### SHIPMENT ADDRESS PAGE
+    # Validate that the Checkout, Shipment Address screen has been displayed
+    assert address_page.get_title() == "Enter a shipping address", f"It should be in Shipping Address screen, but it is in {address_page.get_title()}"
+
+    # PLUS: Validate all the required fields and their errors when trying to submit the payment without entering these fields
+    address_page.go_to_payment()
+    address_page.assert_is_all_errors_displayed()
+
+    # Enter information in all the form fields and proceed to payment.
+    address_page.fill_forms_completely(load_data)
+    address_page.go_to_payment()
+
+    ### PAYMENT METHOD PAGE
+
+    # Validate that the Checkout, Payment screen has been displayed
+    assert payment_page.get_title() == "Enter a payment method", f"It should be in Payment Method screen, but it is in {payment_page.get_title()}"
+
+    # PLUS: Validate all mandatory fields.
+    payment_page.go_to_review_order()
+    payment_page.assert_is_all_card_errors_displayed()
+
+    # Enter the values in the corresponding fields 
+    payment_page.fill_forms_card(load_data)
+
+    # PLUS: Uncheck the Checkbox and Validate all required fields and their errors when trying to submit the payment without entering these fields.
+    if payment_page.is_checked_same_billing_address():
+        payment_page.click_billing_address()
+    payment_page.go_to_review_order()
+    payment_page.assert_is_all_billing_adddress_errors_displayed()
+    payment_page.fill_forms_billing_address(load_data)
+
+    # Proceed to the review by clicking on the Review Order button
+    payment_page.go_to_review_order()
+
+
+    ### REVIEW YOUR ORDER PAGE
+
+    # Validate that the Checkout, Review your order screen has been displayed.
+    # Validate that the Deliver Address and Payment Method information is correct
+    # Validate the product's unit information such as Name and Value
+    # Validate that the total value of the items plus the Freight value is correct.
+    # Click on the Place Order button
+
+    
+    # Validate that the Checkout Complete screen has been displayed
+    # Click on the Continue Shopping button
+    # Validate that the Products screen has been displayed and that the cart is empty.

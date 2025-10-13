@@ -1,0 +1,31 @@
+{
+    "shipping_address" : {
+        "full_name": "Test Person",
+        "address_one": "little house 111",
+        "address_two": "big house 222",
+        "city": "Aracaju",
+        "state": "Sergipe",
+        "zip_code": "123456",
+        "country": "Brasil"
+    },
+
+    "payment_method" : {
+        "full_name": "Test Person",
+        "card_number": "1234567809101112",
+        "expiration_date": "03/30",
+        "security_code": "456"
+    },
+
+    "billing_address" : {
+        "full_name": "Test Person",
+        "address_one": "another little house 333",
+        "address_two": "another big house 444",
+        "city": "Recife",
+        "state": "Pernambuco",
+        "zip_code": "78910",
+        "country": "Brasiiil"
+
+    }
+
+
+}

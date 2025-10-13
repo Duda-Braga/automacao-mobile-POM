@@ -1,4 +1,6 @@
 import pytest
+import json
+from pathlib import Path
 from appium import webdriver
 from appium.options.common.base import AppiumOptions
 
@@ -28,7 +30,16 @@ def driver():
     # The 'yield' keyword passes control to the test function
     yield _driver
     
+
     # --- TEARDOWN PHASE ---
     # This code runs AFTER the test function completes (or fails)
     print("\nQuitting driver...")
     _driver.quit()
+
+@pytest.fixture(scope="session")
+def load_data():
+    """Lê o JSON de data e retorna como dicionário"""
+    json_path = Path(__file__).parent / "data" / "test_data.json"
+    with open(json_path, "r", encoding="utf-8") as f:
+        data = json.load(f)
+    return data

@@ -28,3 +28,6 @@ class BasePage:
     
     def is_element_enabled(self, by, locator):
         return self.find_element(by, locator).is_enabled()
+
+    def is_element_checked(self, by, locator):
+        return self.find_element(by, locator).get_attribute("checked")
